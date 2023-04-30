@@ -1,19 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nts
- * Date: 31.3.18.
- * Time: 16.53
- */
 
-namespace KgBot\Magento\Utils;
-
+namespace Diepxuan\Magento\Utils;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use KgBot\Magento\Exceptions\MagentoClientException;
-use KgBot\Magento\Exceptions\MagentoRequestException;
+use Diepxuan\Magento\Exceptions\MagentoClientException;
+use Diepxuan\Magento\Exceptions\MagentoRequestException;
 
 class Request
 {
@@ -29,68 +22,65 @@ class Request
      * @param array $options
      * @param array $headers
      */
-    public function __construct( $token = null, $options = [], $headers = [] )
+    public function __construct($token = null, $options = [], $headers = [])
     {
-        $token   = $token ?? config( 'laravel-magento.token' );
-        $headers = array_merge( [
+        $token   = $token ?? config('laravel-magento.token');
+        $headers = array_merge([
 
             'Accept'        => 'application/json',
             'Content-Type'  => 'application/json',
             'Authorization' => 'Bearer ' . $token,
-        ], $headers );
-        $options = array_merge( [
+        ], $headers);
+        $options = array_merge([
 
-            'base_uri' => config( 'laravel-magento.base_uri' ),
+            'base_uri' => config('laravel-magento.base_uri'),
             'headers'  => $headers,
-        ], $options );
+        ], $options);
 
-        $this->client = new Client( $options );
+        $this->client = new Client($options);
     }
 
     /**
      * @param $callback
      *
      * @return mixed
-     * @throws \KgBot\Magento\Exceptions\MagentoClientException
-     * @throws \KgBot\Magento\Exceptions\MagentoRequestException
+     * @throws \Diepxuan\Magento\Exceptions\MagentoClientException
+     * @throws \Diepxuan\Magento\Exceptions\MagentoRequestException
      */
-    public function handleWithExceptions( $callback )
+    public function handleWithExceptions($callback)
     {
         try {
             return $callback();
-
-        } catch ( ClientException $exception ) {
+        } catch (ClientException $exception) {
 
             $message = $exception->getMessage();
             $code    = $exception->getCode();
 
-            if ( $exception->hasResponse() ) {
+            if ($exception->hasResponse()) {
 
                 $message = (string) $exception->getResponse()->getBody();
                 $code    = $exception->getResponse()->getStatusCode();
             }
 
-            throw new MagentoRequestException( $message, $code );
-
-        } catch ( ServerException $exception ) {
+            throw new MagentoRequestException($message, $code);
+        } catch (ServerException $exception) {
 
             $message = $exception->getMessage();
             $code    = $exception->getCode();
 
-            if ( $exception->hasResponse() ) {
+            if ($exception->hasResponse()) {
 
                 $message = (string) $exception->getResponse()->getBody();
                 $code    = $exception->getResponse()->getStatusCode();
             }
 
-            throw new MagentoRequestException( $message, $code );
-
-        } catch ( \Exception $exception ) {
+            throw new MagentoRequestException($message, $code);
+        } catch (\Exception $exception) {
 
             $message = $exception->getMessage();
             $code    = $exception->getCode();
 
-            throw new MagentoClientException( $message, $code );
+            throw new MagentoClientException($message, $code);
         }
     }
 }

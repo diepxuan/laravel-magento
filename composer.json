@@ -14,10 +14,10 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
     "laravel/framework": "^10",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "*"
+    "guzzlehttp/guzzle": "*",
+    "guzzlehttp/oauth-subscriber": "*"
   },
   "autoload": {
     "psr-4": {

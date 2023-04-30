@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nts
- * Date: 19.4.18.
- * Time: 01.30
- */
 
-namespace KgBot\Magento\Models;
+namespace Diepxuan\Magento\Models;
 
 
-use KgBot\Magento\Utils\Model;
+use Diepxuan\Magento\Utils\Model;
 
 class CustomerGroup extends Model
 {

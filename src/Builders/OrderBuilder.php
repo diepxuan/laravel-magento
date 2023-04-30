@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nts
- * Date: 19.4.18.
- * Time: 01.32
- */
 
-namespace KgBot\Magento\Builders;
+namespace Diepxuan\Magento\Builders;
 
-
-use KgBot\Magento\Models\Order;
+use Diepxuan\Magento\Models\Order;
 
 class OrderBuilder extends Builder
 {
