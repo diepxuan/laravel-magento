@@ -9,10 +9,10 @@ use Diepxuan\Magento\Builders\OrderBuilder;
 use Diepxuan\Magento\Builders\ProductBuilder;
 use Diepxuan\Magento\Utils\Request;
 
-class Magento
+class Magento2
 {
     /**
-     * @var $request Request
+     * @var $request \Diepxuan\Magento\Utils\Request
      */
     protected $request;
 

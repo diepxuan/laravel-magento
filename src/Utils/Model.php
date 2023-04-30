@@ -2,7 +2,6 @@
 
 namespace Diepxuan\Magento\Utils;
 
-
 use Illuminate\Support\Str;
 use ReflectionObject;
 use ReflectionProperty;
