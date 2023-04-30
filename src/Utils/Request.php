@@ -3,10 +3,13 @@
 namespace Diepxuan\Magento\Utils;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Diepxuan\Magento\Exceptions\MagentoClientException;
 use Diepxuan\Magento\Exceptions\MagentoRequestException;
+
 
 class Request
 {
@@ -22,19 +25,28 @@ class Request
      * @param array $options
      * @param array $headers
      */
-    public function __construct($token = null, $options = [], $headers = [])
+    public function __construct($token = [], $options = [], $headers = [])
     {
-        $token   = $token ?? config('laravel-magento.token');
-        $headers = array_merge([
+        $token = array_merge([
+            'consumer_key'     => null,
+            'consumer_secret'  => null,
+            'token'            => null,
+            'token_secret'     => null,
+            'signature_method' => Oauth1::SIGNATURE_METHOD_HMACSHA256,
+        ], $token);
+        $middleware = new Oauth1([$token]);
+        $stack      = HandlerStack::create();
+        $stack->push($middleware);
 
+        $headers = array_merge([
             'Accept'        => 'application/json',
             'Content-Type'  => 'application/json',
-            'Authorization' => 'Bearer ' . $token,
         ], $headers);
-        $options = array_merge([
 
-            'base_uri' => config('laravel-magento.base_uri'),
-            'headers'  => $headers,
+        $options = array_merge([
+            'headers' => $headers,
+            'handler' => $stack,
+            'auth' => 'oauth',
         ], $options);
 
         $this->client = new Client($options);
