@@ -23,7 +23,7 @@ class Magento2
      * @param array $options Custom Guzzle options
      * @param array $headers Custom Guzzle headers
      */
-    public function __construct($token = null, $options = [], $headers = [])
+    public function __construct($token, $options = [], $headers = [])
     {
         $this->initRequest($token, $options, $headers);
     }
