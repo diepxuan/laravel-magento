@@ -4,7 +4,6 @@ namespace Diepxuan\Magento\Utils;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Diepxuan\Magento\Exceptions\MagentoClientException;
@@ -27,14 +26,15 @@ class Request
      */
     public function __construct($token = [], $options = [], $headers = [])
     {
-        $token = array_merge([
-            'consumer_key'     => null,
-            'consumer_secret'  => null,
-            'token'            => null,
-            'token_secret'     => null,
+        $token = array_replace([
+            'consumer_key'    => 'anonymous',
+            'consumer_secret' => 'anonymous',
+            'token'           => 'anonymous',
+            'token_secret'    => 'anonymous',
+
             'signature_method' => Oauth1::SIGNATURE_METHOD_HMACSHA256,
         ], $token);
-        $middleware = new Oauth1([$token]);
+        $middleware = new Oauth1($token);
         $stack      = HandlerStack::create();
         $stack->push($middleware);
 
