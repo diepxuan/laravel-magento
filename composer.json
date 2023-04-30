@@ -1,9 +1,13 @@
 {
-  "name": "kg-bot/laravel-magento",
-  "description": "Laravel Integration With Magento API",
+  "name": "diepxuan/laravel-magento",
+  "description": "Laravel Integration With Magento API (OAuth 1.0)",
   "license": "MIT",
   "type": "library",
   "authors": [
+    {
+      "name": "tran Ngoc Duc",
+      "email": "ductn@diepxuan.com"
+    },
     {
       "name": "Stefan Ninic",
       "email": "ninicstefan94@gmail.com"
@@ -17,14 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "KgBot\\Magento\\": "src/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "KgBot\\Magento\\MagentoServiceProvider"
-      ]
+      "Diepxuan\\Magento\\": "src/"
     }
   }
 }
