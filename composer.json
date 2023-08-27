@@ -14,7 +14,6 @@
     }
   ],
   "require": {
-    "laravel/framework": "^10",
     "ext-json": "*",
     "guzzlehttp/guzzle": "*",
     "guzzlehttp/oauth-subscriber": "*"
