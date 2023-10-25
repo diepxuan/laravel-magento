@@ -2,7 +2,6 @@
   "name": "diepxuan/laravel-magento",
   "description": "Laravel Integration With Magento API (OAuth 1.0)",
   "license": "MIT",
-  "type": "library",
   "authors": [
     {
       "name": "Tran Ngoc Duc",
@@ -20,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Diepxuan\\Magento\\": "src/"
+      "Diepxuan\\Magento\\": ""
     }
   }
 }
