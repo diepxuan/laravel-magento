@@ -21,10 +21,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Diepxuan\\Magento\\MagentoServiceProvider"
+        "Diepxuan\\Magento\\Providers\\MagentoServiceProvider"
       ],
       "aliases": {
-        "Magento": "Diepxuan\\Magento\\MagentoFacade"
+        "Magento": "Diepxuan\\Magento\\Facades\\MagentoFacade"
       }
     }
   }
