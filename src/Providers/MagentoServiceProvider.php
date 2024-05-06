@@ -8,12 +8,11 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-06 16:18:54
+ * @lastupdate 2024-05-06 18:36:37
  */
 
 namespace Diepxuan\Magento\Providers;
 
-use Diepxuan\Magento\Magento2 as Magento;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -40,15 +39,7 @@ class MagentoServiceProvider extends ServiceProvider
     /**
      * Register the application services.
      */
-    public function register(): void
-    {
-        // Automatically apply the package configuration
-        // $this->mergeConfigFrom(__DIR__ . '/../config/magento.php', 'magento');
-
-        // Register the main class to use with the facade
-        // $this->app->singleton('magento', static fn () => new Magento());
-        $this->app->singleton('magento', static fn ($app) => new Magento());
-    }
+    public function register(): void {}
 
     /**
      * Register translations.
@@ -133,17 +124,5 @@ class MagentoServiceProvider extends ServiceProvider
         }
 
         return $paths;
-    }
-
-    /**
-     * Register the package's publishable resources.
-     */
-    private function registerPublishing(): void
-    {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/magento.php' => config_path('magento.php'),
-            ], 'magento-config');
-        }
     }
 }
