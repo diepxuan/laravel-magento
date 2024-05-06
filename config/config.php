@@ -45,7 +45,7 @@ return [
     |  section in your Magento 2 administration panel.
     |
     */
-    'token' => env('MAGENTO_CONSUMER_KEY', null),
+    'consumer_key' => env('MAGENTO_CONSUMER_KEY', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
     |  section in your Magento 2 administration panel.
     |
     */
-    'token' => env('MAGENTO_CONSUMER_SECRET', null),
+    'consumer_secret' => env('MAGENTO_CONSUMER_SECRET', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     |  section in your Magento 2 administration panel.
     |
     */
-    'token' => env('MAGENTO_ACCESS_TOKEN_SECRET', null),
+    'token_secret' => env('MAGENTO_ACCESS_TOKEN_SECRET', null),
 
     /*
     |--------------------------------------------------------------------------
