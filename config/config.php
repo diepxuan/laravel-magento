@@ -37,6 +37,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Magento Consumer Key
+    |--------------------------------------------------------------------------
+    |
+    |  The "Consumer Key" defined from the Magento 2 application.
+    |  Developers can add the "Consumer Key" in the "Integrations"
+    |  section in your Magento 2 administration panel.
+    |
+    */
+    'token' => env('MAGENTO_CONSUMER_KEY', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Magento Consumer Secret
+    |--------------------------------------------------------------------------
+    |
+    |  The "Consumer Secret" defined from the Magento 2 application.
+    |  Developers can add the "Consumer Secret" in the "Integrations"
+    |  section in your Magento 2 administration panel.
+    |
+    */
+    'token' => env('MAGENTO_CONSUMER_SECRET', null),
+
+    /*
+    |--------------------------------------------------------------------------
     | Magento Access Token
     |--------------------------------------------------------------------------
     |
@@ -46,6 +70,18 @@ return [
     |
     */
     'token' => env('MAGENTO_ACCESS_TOKEN', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Magento Access Token Secret
+    |--------------------------------------------------------------------------
+    |
+    |  The "Access Token Secret" defined from the Magento 2 application.
+    |  Developers can add the "Access Token Secret" in the "Integrations"
+    |  section in your Magento 2 administration panel.
+    |
+    */
+    'token' => env('MAGENTO_ACCESS_TOKEN_SECRET', null),
 
     /*
     |--------------------------------------------------------------------------
