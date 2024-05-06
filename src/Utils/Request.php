@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 /*
- * Copyright © 2019 Dxvn, Inc. All rights reserved.
+ * @copyright  © 2019 Dxvn, Inc.
  *
- * © Tran Ngoc Duc <ductn@diepxuan.com>
- *   Tran Ngoc Duc <caothu91@gmail.com>
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-06 18:40:01
  */
 
 namespace Diepxuan\Magento\Utils;
@@ -34,11 +36,6 @@ class Request
      */
     public function __construct($token = [], $options = [], $headers = [])
     {
-        //     $this->baseUrl   = $baseUrl ?: config('magento.base_url');
-        //     $this->token     = $token ?: config('magento.token');
-        //     $this->version   = $version ?: config('magento.version') ?: 'V1';
-        //     $this->basePath  = $basePath ?: config('magento.base_path') ?: 'rest';
-        //     $this->storeCode = $storeCode ?: config('magento.store_code') ?: 'all';
         $token = array_replace([
             'consumer_key'    => 'anonymous',
             'consumer_secret' => 'anonymous',

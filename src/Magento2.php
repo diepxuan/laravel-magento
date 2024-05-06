@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-06 16:08:56
+ * @lastupdate 2024-05-06 18:40:34
  */
 
 namespace Diepxuan\Magento;
@@ -34,7 +34,7 @@ class Magento2
      * @param array $options Custom Guzzle options
      * @param array $headers Custom Guzzle headers
      */
-    public function __construct($token, $options = [], $headers = [])
+    public function __construct($token = [], $options = [], $headers = [])
     {
         $this->initRequest($token, $options, $headers);
     }
@@ -71,7 +71,7 @@ class Magento2
      * @param mixed $options
      * @param mixed $headers
      */
-    private function initRequest($token, $options = [], $headers = []): void
+    private function initRequest($token = [], $options = [], $headers = []): void
     {
         $this->request = new Request($token, $options, $headers);
     }
