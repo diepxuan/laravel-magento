@@ -9,6 +9,7 @@
     }
   ],
   "require": {
+    "diepxuan/laravel-core": "*",
     "ext-json": "*",
     "guzzlehttp/guzzle": "*",
     "guzzlehttp/oauth-subscriber": "*"
