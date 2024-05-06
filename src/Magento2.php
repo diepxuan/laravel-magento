@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-06 18:40:34
+ * @lastupdate 2024-05-06 21:41:40
  */
 
 namespace Diepxuan\Magento;
@@ -36,8 +36,20 @@ class Magento2
      */
     public function __construct($token = [], $options = [], $headers = [])
     {
-        $this->initRequest($token, $options, $headers);
+        $this->initRequest(
+            array_replace([
+                'consumer_key'    => config('magento.consumer_key'),
+                'consumer_secret' => config('magento.consumer_secret'),
+                'token'           => config('magento.token'),
+                'token_secret'    => config('magento.token_secret'),
+            ], $token),
+            array_replace([
+                'base_uri' => config('magento.base_url'),
+            ], $options),
+            $headers
+        );
     }
+    // 'base_uri' => 'https://api.twitter.com/1.1/',
 
     public function orders(): OrderBuilder
     {

@@ -41,6 +41,7 @@ class ApiController extends Controller
 
     public function token(Request $request, $type)
     {
+        dd($request);
         $api       = new Api();
         $api->type = $type;
         $api       = $api->castAs();

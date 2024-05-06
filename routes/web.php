@@ -3,13 +3,16 @@
 declare(strict_types=1);
 
 /*
- * Copyright © 2019 Dxvn, Inc. All rights reserved.
+ * @copyright  © 2019 Dxvn, Inc.
  *
- * © Tran Ngoc Duc <ductn@diepxuan.com>
- *   Tran Ngoc Duc <caothu91@gmail.com>
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-06 21:55:09
  */
 
 use Diepxuan\Magento\Http\Controllers\ApiController;
+use Diepxuan\Magento\Http\Controllers\OAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +26,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::match(['GET', 'POST'], '/api/{type}', [ApiController::class, 'token'])->name('api.new');
+Route::match(['GET', 'POST'], '/magento/api/{type}', [ApiController::class, 'token'])->name('api.new');
+
+Route::post('callback/{connection}', [OAuthController::class, 'callback'])
+    ->name('magento.oauth.callback')
+;
+
+Route::get('identity/{connection}', [OAuthController::class, 'identity'])
+    ->middleware(config('magento.oauth.middleware'))
+    ->name('magento.oauth.identity')
+;
