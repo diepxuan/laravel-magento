@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 /*
- * Copyright © 2019 Dxvn, Inc. All rights reserved.
+ * @copyright  © 2019 Dxvn, Inc.
  *
- * © Tran Ngoc Duc <ductn@diepxuan.com>
- *   Tran Ngoc Duc <caothu91@gmail.com>
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-06 16:08:56
  */
 
 namespace Diepxuan\Magento;
@@ -21,48 +23,6 @@ use Diepxuan\Magento\Utils\Request;
 class Magento2
 {
     /**
-     * The Base URL of the Magento 2 store.
-     *
-     * @var string
-     */
-    public $baseUrl;
-
-    /**
-     * The Access Token defined from the Magento 2 application.
-     *
-     * @var null|string
-     */
-    public $token;
-
-    /**
-     * Determines if the API Version is included in the request.
-     *
-     * @var bool
-     */
-    public $versionIncluded = true;
-
-    /**
-     * The specified API version to use in the request.
-     *
-     * @var string
-     */
-    public $version;
-
-    /**
-     * The Magento 2 API base path.
-     *
-     * @var string
-     */
-    public $basePath;
-
-    /**
-     * The Magento 2 store code.
-     *
-     * @var string
-     */
-    public $storeCode;
-
-    /**
      * @var Request
      */
     protected $request;
@@ -76,11 +36,6 @@ class Magento2
      */
     public function __construct($token, $options = [], $headers = [])
     {
-        //     $this->baseUrl   = $baseUrl ?: config('magento.base_url');
-        //     $this->token     = $token ?: config('magento.token');
-        //     $this->version   = $version ?: config('magento.version') ?: 'V1';
-        //     $this->basePath  = $basePath ?: config('magento.base_path') ?: 'rest';
-        //     $this->storeCode = $storeCode ?: config('magento.store_code') ?: 'all';
         $this->initRequest($token, $options, $headers);
     }
 
@@ -110,9 +65,11 @@ class Magento2
     }
 
     /**
-     * @param array $options
-     * @param array $headers
+     * initRequest.
+     *
      * @param mixed $token
+     * @param mixed $options
+     * @param mixed $headers
      */
     private function initRequest($token, $options = [], $headers = []): void
     {

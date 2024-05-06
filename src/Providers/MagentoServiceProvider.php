@@ -3,14 +3,17 @@
 declare(strict_types=1);
 
 /*
- * Copyright © 2019 Dxvn, Inc. All rights reserved.
+ * @copyright  © 2019 Dxvn, Inc.
  *
- * © Tran Ngoc Duc <ductn@diepxuan.com>
- *   Tran Ngoc Duc <caothu91@gmail.com>
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-06 16:18:54
  */
 
 namespace Diepxuan\Magento\Providers;
 
+use Diepxuan\Magento\Magento2 as Magento;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -43,7 +46,8 @@ class MagentoServiceProvider extends ServiceProvider
         // $this->mergeConfigFrom(__DIR__ . '/../config/magento.php', 'magento');
 
         // Register the main class to use with the facade
-        $this->app->singleton('magento', static fn () => new Magento());
+        // $this->app->singleton('magento', static fn () => new Magento());
+        $this->app->singleton('magento', static fn ($app) => new Magento());
     }
 
     /**
@@ -85,7 +89,7 @@ class MagentoServiceProvider extends ServiceProvider
      */
     public function provides(): array
     {
-        return [];
+        return ['magento'];
     }
 
     /**

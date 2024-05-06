@@ -25,7 +25,7 @@
         "Diepxuan\\Magento\\Providers\\MagentoServiceProvider"
       ],
       "aliases": {
-        "Magento": "Diepxuan\\Magento\\Facades\\MagentoFacade"
+        "magento": "Diepxuan\\Magento\\Facades\\MagentoFacade"
       }
     }
   }
