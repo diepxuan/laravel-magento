@@ -11,3 +11,11 @@ Require using composer
 ```bash
 composer require diepxuan/laravel-magento
 ```
+
+Workflows
+---------
+- [PHPoAuthLib](https://github.com/daviddesberg/PHPoAuthLib)
+- [kg-bot](https://github.com/kg-bot/laravel-magento)
+- [grayloon](https://github.com/grayloon/magento-laravel-api)
+- [justbetter](https://github.com/justbetter/laravel-magento-client)
+- [connector](https://github.com/r3alst/laravel-magento2-connector)
