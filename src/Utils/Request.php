@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-06 21:46:47
+ * @lastupdate 2024-05-07 21:17:08
  */
 
 namespace Diepxuan\Magento\Utils;
@@ -83,7 +83,8 @@ class Request
                 $code    = $exception->getResponse()->getStatusCode();
             }
 
-            exit($message);
+            // exit($message);
+            dd($this->client, $message, $code, $exception);
 
             throw new MagentoRequestException($message, $code);
         } catch (ServerException $exception) {

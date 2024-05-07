@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * @copyright  © 2019 Dxvn, Inc.
+ *
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-07 21:16:20
+ */
+
 namespace Diepxuan\Magento\Utils;
 
 use GuzzleHttp\Psr7\Query;
@@ -9,18 +20,19 @@ use Psr\Http\Message\RequestInterface;
  * OAuth 1.0 signature plugin.
  *
  * Portions of this code comes from HWIOAuthBundle and a Guzzle 3 pull request:
+ *
  * @author Alexander <iam.asm89@gmail.com>
  * @author Joseph Bielawski <stloyd@gmail.com>
  * @author Francisco Facioni <fran6co@gmail.com>
- * @link https://github.com/hwi/HWIOAuthBundle
- * @link https://github.com/guzzle/guzzle/pull/563 Original Guzzle 3 pull req.
  *
- * @link http://oauth.net/core/1.0/#rfc.section.9.1.1 OAuth specification
+ * @see https://github.com/hwi/HWIOAuthBundle
+ * @see https://github.com/guzzle/guzzle/pull/563 Original Guzzle 3 pull req.
+ * @see http://oauth.net/core/1.0/#rfc.section.9.1.1 OAuth specification
  */
 class Oauth1
 {
     /**
-     * Consumer request method constants. See http://oauth.net/core/1.0/#consumer_req_param
+     * Consumer request method constants. See http://oauth.net/core/1.0/#consumer_req_param.
      */
     const REQUEST_METHOD_HEADER = 'header';
     const REQUEST_METHOD_QUERY  = 'query';
@@ -53,7 +65,7 @@ class Oauth1
      * - signature_method: Signature method. One of 'HMAC-SHA1', 'RSA-SHA1', or
      *   'PLAINTEXT'. Defaults to 'HMAC-SHA1'.
      *
-     * @param array $config Configuration array.
+     * @param array $config configuration array
      */
     public function __construct($config)
     {
@@ -73,15 +85,12 @@ class Oauth1
     /**
      * Called when the middleware is handled.
      *
-     * @param callable $handler
-     *
      * @return \Closure
      */
     public function __invoke(callable $handler)
     {
         return function ($request, array $options) use ($handler) {
-
-            if (isset($options['auth']) && $options['auth'] == 'oauth') {
+            if (isset($options['auth']) && 'oauth' === $options['auth']) {
                 $request = $this->onBefore($request);
             }
 
@@ -89,41 +98,11 @@ class Oauth1
         };
     }
 
-    private function onBefore(RequestInterface $request)
-    {
-        $oauthparams = $this->getOauthParams(
-            $this->generateNonce($request),
-            $this->config
-        );
-
-        $oauthparams['oauth_signature'] = $this->getSignature($request, $oauthparams);
-        uksort($oauthparams, 'strcmp');
-
-        switch ($this->config['request_method']) {
-            case self::REQUEST_METHOD_HEADER:
-                list($header, $value) = $this->buildAuthorizationHeader($oauthparams);
-                $request = $request->withHeader($header, $value);
-                break;
-            case self::REQUEST_METHOD_QUERY:
-                $queryParams = Query::parse($request->getUri()->getQuery());
-                $preparedParams = Query::build($oauthparams + $queryParams);
-                $request = $request->withUri($request->getUri()->withQuery($preparedParams));
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf(
-                    'Invalid consumer method "%s"',
-                    $this->config['request_method']
-                ));
-        }
-
-        return $request;
-    }
-
     /**
-     * Calculate signature for request
+     * Calculate signature for request.
      *
      * @param RequestInterface $request Request to generate a signature for
-     * @param array            $params  Oauth parameters.
+     * @param array            $params  oauth parameters
      *
      * @return string
      *
@@ -136,7 +115,7 @@ class Oauth1
         unset($params['oauth_signature']);
 
         // Add POST fields if the request uses POST fields and no files
-        if ($request->getHeaderLine('Content-Type') === 'application/x-www-form-urlencoded') {
+        if ('application/x-www-form-urlencoded' === $request->getHeaderLine('Content-Type')) {
             $body = Query::parse($request->getBody()->getContents());
             $params += $body;
         }
@@ -152,20 +131,29 @@ class Oauth1
 
         // Implements double-dispatch to sign requests
         switch ($this->config['signature_method']) {
-            case Oauth1::SIGNATURE_METHOD_HMAC:
+            case self::SIGNATURE_METHOD_HMAC:
                 $signature = $this->signUsingHmac('sha1', $baseString);
+
                 break;
-            case Oauth1::SIGNATURE_METHOD_HMACSHA256:
+
+            case self::SIGNATURE_METHOD_HMACSHA256:
                 $signature = $this->signUsingHmac('sha256', $baseString);
+
                 break;
-            case Oauth1::SIGNATURE_METHOD_RSA:
+
+            case self::SIGNATURE_METHOD_RSA:
                 $signature = $this->signUsingRsaSha1($baseString);
+
                 break;
-            case Oauth1::SIGNATURE_METHOD_PLAINTEXT:
+
+            case self::SIGNATURE_METHOD_PLAINTEXT:
                 $signature = $this->signUsingPlaintext($baseString);
+
                 break;
+
             default:
                 throw new \RuntimeException('Unknown signature method: ' . $this->config['signature_method']);
+
                 break;
         }
 
@@ -198,21 +186,56 @@ class Oauth1
      * @param array            $params  Associative array of OAuth parameters
      *
      * @return string Returns the base string
-     * @link http://oauth.net/core/1.0/#sig_base_example
+     *
+     * @see http://oauth.net/core/1.0/#sig_base_example
      */
     protected function createBaseString(RequestInterface $request, array $params)
     {
         // Remove query params from URL. Ref: Spec: 9.1.2.
-        $url = $request->getUri()->withQuery('');
+        $url   = $request->getUri()->withQuery('');
         $query = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
 
         return strtoupper($request->getMethod())
-            . '&' . rawurlencode($url)
+            . '&' . rawurlencode((string) $url)
             . '&' . rawurlencode($query);
     }
 
+    private function onBefore(RequestInterface $request)
+    {
+        $oauthparams = $this->getOauthParams(
+            $this->generateNonce($request),
+            $this->config
+        );
+
+        $oauthparams['oauth_signature'] = $this->getSignature($request, $oauthparams);
+        uksort($oauthparams, 'strcmp');
+
+        switch ($this->config['request_method']) {
+            case self::REQUEST_METHOD_HEADER:
+                [$header, $value] = $this->buildAuthorizationHeader($oauthparams);
+                $request          = $request->withHeader($header, $value);
+
+                break;
+
+            case self::REQUEST_METHOD_QUERY:
+                $queryParams    = Query::parse($request->getUri()->getQuery());
+                $preparedParams = Query::build($oauthparams + $queryParams);
+                $request        = $request->withUri($request->getUri()->withQuery($preparedParams));
+
+                break;
+
+            default:
+                throw new \InvalidArgumentException(sprintf(
+                    'Invalid consumer method "%s"',
+                    $this->config['request_method']
+                ));
+        }
+
+        return $request;
+    }
+
     /**
-     * Convert booleans to strings, removed unset parameters, and sorts the array
+     * Convert booleans to strings, removed unset parameters, and sorts the array.
      *
      * @param array $data Data array
      *
@@ -225,7 +248,7 @@ class Oauth1
         uksort($data, 'strcmp');
 
         foreach ($data as $key => $value) {
-            if ($value === null) {
+            if (null === $value) {
                 unset($data[$key]);
             }
         }
@@ -234,7 +257,7 @@ class Oauth1
     }
 
     /**
-     * @param string $algo Name of selected hashing algorithm (i.e. "md5", "sha256", "haval160,4", etc..)
+     * @param string $algo       Name of selected hashing algorithm (i.e. "md5", "sha256", "haval160,4", etc..)
      * @param string $baseString
      *
      * @return string
@@ -256,7 +279,7 @@ class Oauth1
      */
     private function signUsingRsaSha1($baseString)
     {
-        if (!function_exists('openssl_pkey_get_private')) {
+        if (!\function_exists('openssl_pkey_get_private')) {
             throw new \RuntimeException('RSA-SHA1 signature method '
                 . 'requires the OpenSSL extension.');
         }
@@ -284,16 +307,16 @@ class Oauth1
     }
 
     /**
-     * Builds the Authorization header for a request
+     * Builds the Authorization header for a request.
      *
-     * @param array $params Associative array of authorization parameters.
+     * @param array $params associative array of authorization parameters
      *
      * @return array
      */
     private function buildAuthorizationHeader(array $params)
     {
         foreach ($params as $key => $value) {
-            $params[$key] = $key . '="' . rawurlencode($value) . '"';
+            $params[$key] = rawurlencode((string) $key) . '="' . rawurlencode((string) $value) . '"';
         }
 
         if (isset($this->config['realm'])) {
@@ -307,10 +330,10 @@ class Oauth1
     }
 
     /**
-     * Get the oauth parameters as named by the oauth spec
+     * Get the oauth parameters as named by the oauth spec.
      *
-     * @param string     $nonce  Unique nonce
-     * @param array      $config Configuration options of the plugin.
+     * @param string $nonce  Unique nonce
+     * @param array  $config configuration options of the plugin
      *
      * @return array
      */
@@ -327,11 +350,11 @@ class Oauth1
         // the config as the parameter may be considered invalid by the Oauth
         // service.
         $optionalParams = [
-            'callback'  => 'oauth_callback',
-            'token'     => 'oauth_token',
-            'verifier'  => 'oauth_verifier',
-            'version'   => 'oauth_version',
-            'bodyhash'  => 'oauth_body_hash'
+            'callback' => 'oauth_callback',
+            'token'    => 'oauth_token',
+            'verifier' => 'oauth_verifier',
+            'version'  => 'oauth_version',
+            'bodyhash' => 'oauth_body_hash',
         ];
 
         foreach ($optionalParams as $optionName => $oauthName) {

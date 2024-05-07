@@ -1,18 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * @copyright  © 2019 Dxvn, Inc.
+ *
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-07 21:20:08
+ */
+
 namespace Diepxuan\Magento\Builders;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Diepxuan\Magento\Exceptions\MagentoClientException;
 use Diepxuan\Magento\Exceptions\MagentoRequestException;
 use Diepxuan\Magento\Utils\Model;
 use Diepxuan\Magento\Utils\Request;
-
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class Builder
 {
     protected $entity;
+
     /** @var Model */
     protected $model;
     protected $request;
@@ -26,6 +37,7 @@ class Builder
      * @param array $filters
      *
      * @return Collection|Model[]
+     *
      * @throws MagentoClientException
      * @throws MagentoRequestException
      */
@@ -41,13 +53,51 @@ class Builder
         });
     }
 
+    public function find($id)
+    {
+        return $this->request->handleWithExceptions(function () use ($id) {
+            $response     = $this->request->client->get("{$this->entity}/{$id}");
+            $responseData = json_decode((string) $response->getBody());
+
+            return new $this->model($this->request, $responseData);
+        });
+    }
+
+    public function create($data)
+    {
+        $data = [
+            Str::singular($this->entity) => $data,
+        ];
+
+        return $this->request->handleWithExceptions(function () use ($data) {
+            $response = $this->request->client->post("{$this->entity}", [
+                'json' => $data,
+            ]);
+
+            $responseData = json_decode((string) $response->getBody());
+
+            return new $this->model($this->request, $responseData);
+        });
+    }
+
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    public function setEntity($new_entity)
+    {
+        $this->entity = $new_entity;
+
+        return $this->entity;
+    }
+
     protected function parseFilters($filters)
     {
         $urlFilters = '?searchCriteria';
-        $count      = count($filters);
+        $count      = \count($filters);
         if ($count > 0) {
             foreach ($filters as $index => $filter) {
-
                 $conditionType = $filter['condition_type'] ?? 'eq';
 
                 $urlFilters .= "[filter_groups][{$index}][filters][0][field]={$filter['field']}";
@@ -70,8 +120,6 @@ class Builder
         $items        = collect([]);
 
         foreach ($fetchedItems as $index => $item) {
-
-
             /** @var Model $model */
             $model = new $this->model($this->request, $item);
 
@@ -79,46 +127,5 @@ class Builder
         }
 
         return $items;
-    }
-
-    public function find($id)
-    {
-        return $this->request->handleWithExceptions(function () use ($id) {
-
-            $response     = $this->request->client->get("{$this->entity}/{$id}");
-            $responseData = json_decode((string) $response->getBody());
-
-            return new $this->model($this->request, $responseData);
-        });
-    }
-
-    public function create($data)
-    {
-        $data = [
-            Str::singular($this->entity) => $data,
-        ];
-
-        return $this->request->handleWithExceptions(function () use ($data) {
-
-            $response = $this->request->client->post("{$this->entity}", [
-                'json' => $data,
-            ]);
-
-            $responseData = json_decode((string) $response->getBody());
-
-            return new $this->model($this->request, $responseData);
-        });
-    }
-
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    public function setEntity($new_entity)
-    {
-        $this->entity = $new_entity;
-
-        return $this->entity;
     }
 }
