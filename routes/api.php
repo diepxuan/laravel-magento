@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 /*
- * Copyright © 2019 Dxvn, Inc. All rights reserved.
+ * @copyright  © 2019 Dxvn, Inc.
  *
- * © Tran Ngoc Duc <ductn@diepxuan.com>
- *   Tran Ngoc Duc <caothu91@gmail.com>
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-07 11:00:20
  */
 
 use Diepxuan\Catalog\Http\Controllers\CatalogController;
@@ -24,5 +26,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(static function (): void {
-    Route::apiResource('magento', CatalogController::class)->names('catalog');
+    // Route::apiResource('magento', CatalogController::class)->names('catalog');
 });
