@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-07 21:17:08
+ * @lastupdate 2024-05-07 23:08:21
  */
 
 namespace Diepxuan\Magento\Utils;
@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 class Request
 {
@@ -82,9 +83,6 @@ class Request
                 $message = (string) $exception->getResponse()->getBody();
                 $code    = $exception->getResponse()->getStatusCode();
             }
-
-            // exit($message);
-            dd($this->client, $message, $code, $exception);
 
             throw new MagentoRequestException($message, $code);
         } catch (ServerException $exception) {
