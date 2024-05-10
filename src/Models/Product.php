@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-08 20:26:02
+ * @lastupdate 2024-05-10 16:46:49
  */
 
 namespace Diepxuan\Magento\Models;
@@ -32,5 +32,18 @@ class Product extends Model
                 'json' => $data,
             ]);
         });
+    }
+
+    protected function setCustomAttributesAttribute($attributes, $name = 'custom_attributes')
+    {
+        $data = [];
+
+        foreach ($attributes as $attribute) {
+            $code        = $attribute->attribute_code;
+            $value       = $attribute->value;
+            $data[$code] = $value;
+        }
+
+        return (object) $data;
     }
 }
