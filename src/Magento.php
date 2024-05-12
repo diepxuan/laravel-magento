@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-12 23:48:21
+ * @lastupdate 2024-05-12 23:57:22
  */
 
 namespace Diepxuan\Magento;
@@ -24,7 +24,7 @@ class Magento
      */
     public static function products(): ProductBuilder
     {
-        return new ProductBuilder($this->request);
+        return new ProductBuilder(self::initOAuthRequest());
     }
 
     /**
