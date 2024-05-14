@@ -8,14 +8,14 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-14 17:39:49
+ * @lastupdate 2024-05-14 17:41:10
  */
 
 namespace Diepxuan\Magento\Builders;
 
 use Diepxuan\Magento\Models\Product;
 
-class ProductBuilder extends Builder
+class CategoryBuilder extends Builder
 {
     protected $entity = 'products';
     protected $model  = Product::class;
