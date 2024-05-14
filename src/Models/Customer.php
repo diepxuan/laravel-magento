@@ -1,9 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * @copyright  © 2019 Dxvn, Inc.
+ *
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-05-14 17:37:56
+ */
+
 namespace Diepxuan\Magento\Models;
-
-
-use Diepxuan\Magento\Utils\Model;
 
 class Customer extends Model
 {
@@ -13,7 +21,6 @@ class Customer extends Model
     public function getBillingAddress()
     {
         return $this->request->handleWithExceptions(function () {
-
             $address      = $this->request->client->get("{$this->entity}/{$this->{$this->primaryKey}}/billingAddress");
             $responseData = json_decode((string) $address->getBody());
 
@@ -28,7 +35,6 @@ class Customer extends Model
     public function getShippingAddress()
     {
         return $this->request->handleWithExceptions(function () {
-
             $address      = $this->request->client->get("{$this->entity}/{$this->{$this->primaryKey}}/shippingAddress");
             $responseData = json_decode((string) $address->getBody());
 
