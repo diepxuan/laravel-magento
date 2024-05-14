@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-14 17:37:19
+ * @lastupdate 2024-05-14 17:40:38
  */
 
 namespace Diepxuan\Magento\Models;
@@ -16,7 +16,7 @@ namespace Diepxuan\Magento\Models;
 use Illuminate\Support\Str;
 
 #[AllowDynamicProperties]
-class Model extends \stdClass
+abstract class Model extends \stdClass
 {
     protected $entity;
     protected $primaryKey;
