@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Diepxuan\Magento\Models;
 
-use Diepxuan\Magento\Utils\Model;
+use Diepxuan\Magento\Models\Model;
 
 #[\AllowDynamicProperties]
 class Category extends Model

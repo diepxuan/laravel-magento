@@ -8,14 +8,14 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-14 17:40:26
+ * @lastupdate 2024-05-14 18:37:00
  */
 
 namespace Diepxuan\Magento\Builders;
 
 use Diepxuan\Magento\Exceptions\MagentoClientException;
 use Diepxuan\Magento\Exceptions\MagentoRequestException;
-use Diepxuan\Magento\Utils\Model;
+use Diepxuan\Magento\Models\Model;
 use Diepxuan\Magento\Utils\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

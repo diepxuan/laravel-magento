@@ -8,11 +8,12 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-12 23:57:22
+ * @lastupdate 2024-05-14 17:44:26
  */
 
 namespace Diepxuan\Magento;
 
+use Diepxuan\Magento\Builders\CategoryBuilder;
 use Diepxuan\Magento\Builders\ProductBuilder;
 use Diepxuan\Magento\Utils\Oauth1;
 use Diepxuan\Magento\Utils\Request;
@@ -20,11 +21,19 @@ use Diepxuan\Magento\Utils\Request;
 class Magento
 {
     /**
-     * list products.
+     * List products.
      */
     public static function products(): ProductBuilder
     {
         return new ProductBuilder(self::initOAuthRequest());
+    }
+
+    /**
+     * List categories.
+     */
+    public static function categories(): CategoryBuilder
+    {
+        return new CategoryBuilder(self::initOAuthRequest());
     }
 
     /**
