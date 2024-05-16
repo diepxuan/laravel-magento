@@ -8,12 +8,12 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-15 20:36:47
+ * @lastupdate 2024-05-16 11:20:23
  */
 
 namespace Diepxuan\Magento\Models;
 
-use Diepxuan\Magento\Utils\Request;
+use Diepxuan\Magento\Http\Request;
 use Illuminate\Support\Str;
 
 #[AllowDynamicProperties]
@@ -31,8 +31,9 @@ abstract class Model extends \stdClass
 
     public function __construct(Request $request, $data = [])
     {
-        $this->request = $request;
-        $data          = (array) $data;
+        $this->request    = $request;
+        $this->modelClass = static::class;
+        $data             = (array) $data;
 
         foreach ($data as $key => $value) {
             $customSetterMethod = 'set' . ucfirst(Str::camel($key)) . 'Attribute';
@@ -76,7 +77,7 @@ abstract class Model extends \stdClass
         ];
 
         return $this->request->handleWithExceptions(function () use ($data) {
-            $response = $this->request->client->put("{$this->entity}/" . urlencode($this->{$this->primaryKey}), [
+            $response = $this->request->client->put("{$this->entity}/" . urlencode("{$this->{$this->primaryKey}}"), [
                 'json' => $data,
             ]);
 

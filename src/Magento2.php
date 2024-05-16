@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-07 21:30:40
+ * @lastupdate 2024-05-16 10:12:41
  */
 
 namespace Diepxuan\Magento;
@@ -18,8 +18,8 @@ use Diepxuan\Magento\Builders\CustomerBuilder;
 use Diepxuan\Magento\Builders\CustomerGroupBuilder;
 use Diepxuan\Magento\Builders\OrderBuilder;
 use Diepxuan\Magento\Builders\ProductBuilder;
+use Diepxuan\Magento\Http\Request;
 use Diepxuan\Magento\Utils\Oauth1;
-use Diepxuan\Magento\Utils\Request;
 
 class Magento2
 {
