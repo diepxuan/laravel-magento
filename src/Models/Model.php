@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-14 17:52:21
+ * @lastupdate 2024-05-15 20:36:47
  */
 
 namespace Diepxuan\Magento\Models;
@@ -66,7 +66,7 @@ abstract class Model extends \stdClass
 
     public function delete()
     {
-        return $this->request->handleWithExceptions(fn () => $this->request->client->delete("{$this->entity}/" . urlencode($this->{$this->primaryKey})));
+        return $this->request->handleWithExceptions(fn () => $this->request->client->delete("{$this->entity}/" . urlencode("{$this->{$this->primaryKey}}")));
     }
 
     public function update($data = [])
