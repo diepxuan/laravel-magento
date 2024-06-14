@@ -8,12 +8,16 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-05-14 18:34:13
+ * @lastupdate 2024-06-14 15:54:35
  */
 
 namespace Diepxuan\Magento\Builders;
 
+use Diepxuan\Magento\Exceptions\MagentoClientException;
+use Diepxuan\Magento\Exceptions\MagentoRequestException;
 use Diepxuan\Magento\Models\Category;
+use Diepxuan\Magento\Models\Model;
+use Illuminate\Support\Collection;
 
 class CategoryBuilder extends Builder
 {
