@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-06-14 15:34:51
+ * @lastupdate 2024-06-17 21:44:55
  */
 
 namespace Diepxuan\Magento;
@@ -41,6 +41,7 @@ class Magento2
         $base_uri = implode('/', [
             config('magento.base_url'),
             config('magento.base_path'),
+            config('magento.store_code'),
             config('magento.version'),
         ]) . '/';
 
