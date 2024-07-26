@@ -8,13 +8,14 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-07-25 21:22:21
+ * @lastupdate 2024-07-26 15:45:22
  */
 
 namespace Diepxuan\Magento;
 
 use Diepxuan\Magento\Builders\CategoryBuilder;
 use Diepxuan\Magento\Builders\ProductBuilder;
+use Diepxuan\Magento\Builders\StoreConfigsBuilder;
 use Diepxuan\Magento\Builders\StoreViewsBuilder;
 use Diepxuan\Magento\Builders\StoreWebsitesBuilder;
 use Diepxuan\Magento\Http\Request;
@@ -48,6 +49,11 @@ class Magento
         return new StoreViewsBuilder(self::initOAuthRequest());
     }
 
+    public static function store_configs(): StoreConfigsBuilder
+    {
+        return new StoreConfigsBuilder(self::initOAuthRequest());
+    }
+
     /**
      * Initial OAuth Request.
      *
@@ -55,7 +61,7 @@ class Magento
      * @param mixed $options
      * @param mixed $headers
      */
-    private static function initOAuthRequest($token = [], $options = [], $headers = [])
+    private static function initOAuthRequest($token = [], $options = [], $headers = []): Request
     {
         $base_uri = implode('/', [
             config('magento.base_url'),
