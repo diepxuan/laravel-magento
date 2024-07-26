@@ -8,13 +8,14 @@ declare(strict_types=1);
  * @author     Tran Ngoc Duc <ductn@diepxuan.com>
  * @author     Tran Ngoc Duc <caothu91@gmail.com>
  *
- * @lastupdate 2024-06-17 21:45:19
+ * @lastupdate 2024-07-25 21:22:21
  */
 
 namespace Diepxuan\Magento;
 
 use Diepxuan\Magento\Builders\CategoryBuilder;
 use Diepxuan\Magento\Builders\ProductBuilder;
+use Diepxuan\Magento\Builders\StoreViewsBuilder;
 use Diepxuan\Magento\Builders\StoreWebsitesBuilder;
 use Diepxuan\Magento\Http\Request;
 use Diepxuan\Magento\Utils\Oauth1;
@@ -40,6 +41,11 @@ class Magento
     public static function store_websites(): StoreWebsitesBuilder
     {
         return new StoreWebsitesBuilder(self::initOAuthRequest());
+    }
+
+    public static function store_views(): StoreViewsBuilder
+    {
+        return new StoreViewsBuilder(self::initOAuthRequest());
     }
 
     /**
