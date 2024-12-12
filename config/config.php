@@ -3,14 +3,28 @@
 declare(strict_types=1);
 
 /*
- * Copyright © 2019 Dxvn, Inc. All rights reserved.
+ * @copyright  © 2019 Dxvn, Inc.
  *
- * © Tran Ngoc Duc <ductn@diepxuan.com>
- *   Tran Ngoc Duc <caothu91@gmail.com>
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-12-12 22:19:25
+ */
+
+use Diepxuan\Magento;
+
+/*
+ * @copyright  © 2019 Dxvn, Inc.
+ *
+ * @author     Tran Ngoc Duc <ductn@diepxuan.com>
+ * @author     Tran Ngoc Duc <caothu91@gmail.com>
+ *
+ * @lastupdate 2024-12-12 22:19:01
  */
 
 return [
-    'name' => 'diepxuan/laravel-catalog',
+    'name'      => 'diepxuan/laravel-magento',
+    'namespace' => Magento::class,
 
     /*
     |--------------------------------------------------------------------------
